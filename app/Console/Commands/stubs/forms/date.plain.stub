@@ -1,0 +1,10 @@
+<!-- Type Date -->
+<div class="form-group">
+    <label for="input-date-##nama_kolom##">
+        ##nama_label##
+        @error('##nama_kolom##')
+        <span class="text-warning"> * {{ $message }} </span>
+        @enderror
+    </label>
+    <input id="input-date-##nama_kolom##" type="date" name="##nama_kolom##" class="form-control @error('##nama_kolom##') is_invalid @enderror" value="{{old('##nama_kolom##',##value_edit##)}}" placeholder="Masukkan ##nama_label##">
+</div>

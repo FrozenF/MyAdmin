@@ -1,0 +1,25 @@
+@extends('template.app')
+
+@section('judul','Edit ##name##')
+
+@section('content')
+<div class="container-fluid">
+    <form action="{{ route('##slug##.update',$item->##primary_key##) }}" method="post">
+        @csrf
+        @method('PUT')
+        <div class="row">
+            <div class="col-md-12">
+
+                ##column##
+
+                <div class="form-group text-right">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Simpan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+@endsection
+

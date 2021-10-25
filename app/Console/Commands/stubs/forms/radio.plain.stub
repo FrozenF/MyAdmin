@@ -1,0 +1,16 @@
+<!-- Type Radio -->
+<div class="form-group">
+    <label>##nama_kolom##</label>
+    <div class="form-group">
+        <div class="form-check">
+            <label class="form-check-label">
+                <input type="radio" class="form-check-input" value="{value_opsi}" name="##nama_label##"> {nama_opsi}
+            </label>
+        </div>
+        <div class="form-check">
+            <label class="form-check-label">
+                <input type="radio" class="form-check-input" value="{value_opsi}" name="##nama_label##"> {nama_opsi}
+            </label>
+        </div>
+    </div>
+</div>

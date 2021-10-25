@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTblMstMenu extends Migration
+class CreateSampleTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreateTblMstMenu extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_mst_menu', function (Blueprint $table) {
+        Schema::create('tbl_sample', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('parent_id')->nullable()->constrained('tbl_mst_menu');
-            $table->string('nama_menu');
-            $table->string('icon_menu')->nullable();
-            $table->string('link_menu')->nullable();
+            $table->string('data');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -31,6 +27,6 @@ class CreateTblMstMenu extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_mst_menu');
+        Schema::dropIfExists('tbl_sample');
     }
 }

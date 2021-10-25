@@ -7,14 +7,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ env('APP_TITLE','LARAVEL APP') }}</title>
-
+    <link rel="shortcut icon" type="image/jpg" href="{{asset(env('APP_FAVICON'))}}"/>
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{{ asset('adminlte3/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('adminlte3/dist/css/adminlte.min.css') }}">
+    <!-- Sweetalert 2 -->
+    <link rel="stylesheet" href="{{ asset('adminlte3/plugins/sweetalert2/sweetalert2.min.css') }}">
+
+    @stack('css')
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -31,91 +36,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
 
-            <!-- Messages Dropdown Menu -->
-            <li class="nav-item dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#">
-                    <i class="far fa-comments"></i>
-                    <span class="badge badge-danger navbar-badge">3</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <a href="#" class="dropdown-item">
-                        <!-- Message Start -->
-                        <div class="media">
-                            <img src="{{ asset('adminlte3/dist/img/user1-128x128.jpg') }}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-                            <div class="media-body">
-                                <h3 class="dropdown-item-title">
-                                    Brad Diesel
-                                    <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                                </h3>
-                                <p class="text-sm">Call me whenever you can...</p>
-                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                            </div>
-                        </div>
-                        <!-- Message End -->
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <!-- Message Start -->
-                        <div class="media">
-                            <img src="{{ asset('adminlte3/dist/img/user8-128x128.jpg') }}" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                            <div class="media-body">
-                                <h3 class="dropdown-item-title">
-                                    John Pierce
-                                    <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                                </h3>
-                                <p class="text-sm">I got your message bro</p>
-                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                            </div>
-                        </div>
-                        <!-- Message End -->
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <!-- Message Start -->
-                        <div class="media">
-                            <img src="{{ asset('adminlte3/dist/img/user3-128x128.jpg') }}" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                            <div class="media-body">
-                                <h3 class="dropdown-item-title">
-                                    Nora Silvester
-                                    <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                                </h3>
-                                <p class="text-sm">The subject goes here</p>
-                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                            </div>
-                        </div>
-                        <!-- Message End -->
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-                </div>
-            </li>
-            <!-- Notifications Dropdown Menu -->
-            <li class="nav-item dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#">
-                    <i class="far fa-bell"></i>
-                    <span class="badge badge-warning navbar-badge">15</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <span class="dropdown-header">15 Notifications</span>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-envelope mr-2"></i> 4 new messages
-                        <span class="float-right text-muted text-sm">3 mins</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-users mr-2"></i> 8 friend requests
-                        <span class="float-right text-muted text-sm">12 hours</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-file mr-2"></i> 3 new reports
-                        <span class="float-right text-muted text-sm">2 days</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-                </div>
-            </li>
             <li class="nav-item">
                 <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                     <i class="fas fa-expand-arrows-alt"></i>
@@ -132,11 +52,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <aside class="main-sidebar sidebar-light-primary elevation-4">
         <!-- Brand Logo -->
-        <a href="index3.html" class="brand-link">
-            <img src="{{ asset('adminlte3/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-            <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <a href="{{ env('APP_URL','') }}" class="brand-link">
+            <img src="{{ asset(env('APP_LOGO')) }}" alt="{{ env('APP_TITLE','Laravel') }} Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">{{ env('APP_TITLE','Laravel') }}</span>
         </a>
 
         <!-- Sidebar -->
@@ -168,38 +88,35 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
-                    <li class="nav-item menu-open">
-                        <a href="#" class="nav-link active">
-                            <i class="nav-icon fas fa-tachometer-alt"></i>
-                            <p>
-                                Starter Pages
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link active">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Active Page</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Inactive Page</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
-                            <p>
-                                Simple Link
-                                <span class="right badge badge-danger">New</span>
-                            </p>
+                        <a href="{{env('APP_URL')}}" class="nav-link">
+                            <i class="nav-icon fas fa-home"></i> Dashboard
                         </a>
                     </li>
+                    @php
+                        $menu = MenuHelper::treeMenu();
+                    @endphp
+                    @foreach($menu as $m1)
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon {{ $m1->icon_menu }}"></i>
+                                <p>
+                                    {{ $m1->nama_menu }}
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                @foreach($m1->children as $ch)
+                                <li class="nav-item">
+                                    <a href="{{url($ch->link_menu)}}" class="nav-link">
+                                        <i class="{{ $ch->icon_menu }} nav-icon"></i>
+                                        <p>{{ $ch->nama_menu }}</p>
+                                    </a>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                    @endforeach
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
@@ -231,7 +148,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- /.content-wrapper -->
 
     <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
+    <aside class="control-sidebar control-sidebar-dark bg-info">
         <!-- Control sidebar content goes here -->
         <div class="p-3">
             <h5>Preferensi</h5>
@@ -247,10 +164,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <footer class="main-footer">
         <!-- To the right -->
         <div class="float-right d-none d-sm-inline">
-            Anything you want
+
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2021-2022
     </footer>
 </div>
 <!-- ./wrapper -->
@@ -261,6 +178,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{ asset('adminlte3/plugins/jquery/jquery.min.js') }}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('adminlte3/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- Sweetalert 2 -->
+<script src="{{ asset('adminlte3/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('adminlte3/dist/js/adminlte.min.js') }}"></script>
 
@@ -269,12 +188,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
     var toggleSwitch = document.querySelector('.theme-switch');
     var currentTheme = localStorage.getItem('theme');
     var mainHeader = document.querySelector('.main-header');
+    var sideBar = document.querySelector('.main-sidebar');
 
     if (currentTheme) {
         if (currentTheme === 'dark') {
             if (!document.body.classList.contains('dark-mode')) {
                 document.body.classList.add("dark-mode");
             }
+
+            if (sideBar.classList.contains('sidebar-light-primary')) {
+                sideBar.classList.add("sidebar-dark-primary");
+                sideBar.classList.remove("sidebar-light-primary");
+            }
+
             if (mainHeader.classList.contains('navbar-light')) {
                 mainHeader.classList.add('navbar-dark');
                 mainHeader.classList.remove('navbar-light');
@@ -288,6 +214,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
             if (!document.body.classList.contains('dark-mode')) {
                 document.body.classList.add("dark-mode");
             }
+
+            if (sideBar.classList.contains('sidebar-light-primary')) {
+                sideBar.classList.add("sidebar-dark-primary");
+                sideBar.classList.remove("sidebar-light-primary");
+            }
+
             if (mainHeader.classList.contains('navbar-light')) {
                 mainHeader.classList.add('navbar-dark');
                 mainHeader.classList.remove('navbar-light');
@@ -297,6 +229,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
             if (document.body.classList.contains('dark-mode')) {
                 document.body.classList.remove("dark-mode");
             }
+
+            if (sideBar.classList.contains('sidebar-dark-primary')) {
+                sideBar.classList.add("sidebar-light-primary");
+                sideBar.classList.remove("sidebar-dark-primary");
+            }
+
             if (mainHeader.classList.contains('navbar-dark')) {
                 mainHeader.classList.add('navbar-light');
                 mainHeader.classList.remove('navbar-dark');
@@ -307,5 +245,69 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     toggleSwitch.addEventListener('change', switchTheme, false);
 </script>
+
+<!-- Notification -->
+<script>
+    function success_alert(message)
+    {
+        Swal.fire(
+            'Sukses',
+            message,
+            'success'
+        );
+    }
+
+    function error_alert(message)
+    {
+        Swal.fire(
+            'Gagal',
+            message,
+            'warning'
+        );
+    }
+
+    function confirm_delete(url)
+    {
+        Swal.fire({
+            title: 'Apakah Anda Yakin?',
+            text: "Apakah Anda Yakin akan menghapus data ini?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Ya, Hapus Data ini',
+            cancelButtonText: 'Tidak'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url : url,
+                    type : 'DELETE',
+                    dataType : 'json'
+                }).done(function(response){
+                    if(response){
+                        Swal.fire(
+                            'Sukses',
+                            'Berhasil Hapus Data',
+                            'success'
+                        ).then(function(){
+                            window.location.reload();
+                        });
+                    }
+                });
+            }
+        });
+    }
+
+</script>
+
+<!-- Setup Ajax -->
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
+@stack('javascript')
 </body>
 </html>

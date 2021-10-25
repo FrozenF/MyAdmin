@@ -1,0 +1,15 @@
+<!-- Type Select -->
+<div class="form-group">
+    <label for="select-##nama_kolom##">
+        ##nama_label##
+        @error('##nama_kolom##')
+        <span class="text-warning">
+                            * {{ $message }}
+                        </span>
+        @enderror
+    </label>
+    <select id="select-##nama_kolom##" name="##nama_kolom##" class="form-control @error('##nama_kolom##') is_invalid @enderror">
+        <option value="{nama_value}">{nama_opsi}</option>
+        <option value="{nama_value}">{nama_opsi}</option>
+    </select>
+</div>

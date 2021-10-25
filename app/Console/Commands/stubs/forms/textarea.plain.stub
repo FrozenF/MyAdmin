@@ -1,0 +1,12 @@
+<!-- Type Textarea -->
+<div class="form-group">
+    <label for="textarea-##nama_kolom##">
+        ##nama_label##
+        @error('##nama_kolom##')
+        <span class="text-warning">
+                            * {{ $message }}
+                        </span>
+        @enderror
+    </label>
+    <textarea id="textarea-##nama_kolom##" name="##nama_kolom##" class="form-control @error('##nama_kolom##') is_invalid @enderror" placeholder="Masukkan ##nama_label##">{{old('##nama_kolom##',##value_edit##)}}</textarea>
+</div>
